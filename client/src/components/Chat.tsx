@@ -1,19 +1,26 @@
 import React, {useState, useEffect} from 'react'
 import {Message} from '../interfaces'
 import { ChatMessage } from './ChatMessage'
+import { User } from './User'
 
 // Interface for props
 export interface ChatProps {
     userName: string,
     room: string,
     socket:any,
+    setRoomUsers:React.Dispatch<React.SetStateAction<{
+        userName: string;
+        room: string;
+        id: string;
+    }[]>>
     roomUsers:{
         userName:string,
-        room:string
+        room:string,
+        id:string
     }[]
 }
 
-export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers}) => {
+export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, setRoomUsers}) => {
     const [currentMessage, setCurrentMessage] = useState<string>("")
     const [messageList, setMessageList] = useState<Message[]>([]) 
 
@@ -37,12 +44,19 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers}) =
         setMessageList([...messageList, messageData])
         })
     }, [socket, messageList])
+    // When a user disconnects recieve the user's info and update the room list
+    socket.on('user-left', (disconnectedUser:any) =>{
+        const newUserList = roomUsers.filter(user => user.id !== disconnectedUser[0].id)
+        setRoomUsers(newUserList)
+    })
 
         return (
             <div>
                 <form onSubmit={sendMessage}>
                     <div className="chat-header">
-                        <p>Live Chat</p>
+                        <h2>Hello {userName}</h2>
+                        <h3>Room: {room}</h3>
+                        <h4>Live Chat</h4>
                     </div>
                     <div className="chat-body">
                         {messageList.map((message, index) => { return <ChatMessage key={index} messageData={message}/> })}
@@ -54,8 +68,12 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers}) =
                         <button>Send</button>
                     </div>
                 </form>
-                <div>
-                    {roomUsers.map(item=>{return <p>{item.userName}</p>})}
+                <div className="active-users">
+                    <h3>Active Users</h3>
+                    {roomUsers.map((item, index)=>{return <User key={index} userName={item.userName}/>})}
+                </div>
+                <div className="leave">
+                    <button type="button" onClick={(e) => {window.location.reload()}}>Leave</button>
                 </div>
             </div>
         );

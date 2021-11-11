@@ -10,20 +10,21 @@ const App = () => {
   const [userName, setUserName] = useState<string>("")
   const [room, setRoom] = useState<string>("")
   const [logged, setLogged] = useState<boolean>(false)
-  const [roomUsers, setRoomUsers] = useState<{userName:string,room:string}[]>([])
+  const [roomUsers, setRoomUsers] = useState<{userName:string,room:string,id:string}[]>([])
 
   useEffect(() => {
     socket.on('connect', () =>{
       socket.on('send-users', (users) => {
         setRoomUsers(users)
       })
+      
     })
   },[room])
 
   // If the user has chosen a username and a room, display the chat 
   return (
     <div>
-      {logged ? <Chat roomUsers={roomUsers} userName={userName} room={room} socket={socket} />:<JoinRoom userName={userName} setUserName={setUserName} room={room} setRoom={setRoom} socket={socket} logged={logged} setLogged={setLogged}/>}
+      {logged ? <Chat roomUsers={roomUsers} userName={userName} room={room} socket={socket} setRoomUsers={setRoomUsers} />:<JoinRoom userName={userName} setUserName={setUserName} room={room} setRoom={setRoom} socket={socket} logged={logged} setLogged={setLogged}/>}
 
     </div>
   );
