@@ -1,5 +1,6 @@
 # SERVER
 /server/node_modules
+/server/dist
 
 # CLIENT
 
