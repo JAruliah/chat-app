@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import io from 'socket.io-client'
 import { Chat } from './components/Chat';
 import { JoinRoom } from './components/JoinRoom';
@@ -10,11 +10,20 @@ const App = () => {
   const [userName, setUserName] = useState<string>("")
   const [room, setRoom] = useState<string>("")
   const [logged, setLogged] = useState<boolean>(false)
+  const [roomUsers, setRoomUsers] = useState<{userName:string,room:string}[]>([])
+
+  useEffect(() => {
+    socket.on('connect', () =>{
+      socket.on('send-users', (users) => {
+        setRoomUsers(users)
+      })
+    })
+  },[room])
 
   // If the user has chosen a username and a room, display the chat 
   return (
     <div>
-      {logged ? <Chat userName={userName} room={room} socket={socket} />:<JoinRoom userName={userName} setUserName={setUserName} room={room} setRoom={setRoom} socket={socket} logged={logged} setLogged={setLogged}/>}
+      {logged ? <Chat roomUsers={roomUsers} userName={userName} room={room} socket={socket} />:<JoinRoom userName={userName} setUserName={setUserName} room={room} setRoom={setRoom} socket={socket} logged={logged} setLogged={setLogged}/>}
 
     </div>
   );

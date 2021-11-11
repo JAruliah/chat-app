@@ -3,17 +3,23 @@ import { Server, Socket } from "socket.io";
 const PORT = 5001
 const server = createServer();
 
+const users :{
+  userName:string,
+  room: string
+}[] = []
+
 // Initialize socket.io
 const io = new Server(server, {cors: {origin: "*"}});
 
 // on connection
 io.on("connection", (socket: Socket) => {
-  console.log(`Client connected with ID ${socket.id}`)
 
-  // on join room receive the username and room id
-  socket.on('join-room', (room) => {
-    socket.join(room)
-    console.log(`${socket.id} has joined room ${room}`)
+  // Join users to room, then emit to the room all the active users
+  socket.on('join-room', (userData) => {
+    socket.join(userData.room)
+    users.push({userName:userData.userName, room:userData.room})
+    const roomUsers = users.filter(user => user.room === userData.room)
+    io.in(userData.room).emit('send-users',roomUsers )
   })
 
   //on send message emit message data to room with room id

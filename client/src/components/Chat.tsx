@@ -6,10 +6,14 @@ import { ChatMessage } from './ChatMessage'
 export interface ChatProps {
     userName: string,
     room: string,
-    socket:any
+    socket:any,
+    roomUsers:{
+        userName:string,
+        room:string
+    }[]
 }
 
-export const Chat: React.FC<ChatProps> = ({userName, room, socket}) => {
+export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers}) => {
     const [currentMessage, setCurrentMessage] = useState<string>("")
     const [messageList, setMessageList] = useState<Message[]>([]) 
 
@@ -50,6 +54,9 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket}) => {
                         <button>Send</button>
                     </div>
                 </form>
+                <div>
+                    {roomUsers.map(item=>{return <p>{item.userName}</p>})}
+                </div>
             </div>
         );
 }
