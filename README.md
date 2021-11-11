@@ -49,16 +49,16 @@ npm start
 
 ## Things to do
 
-- [] Initialize project
-- [] Add on join event
-- [] Create main page, enter username
-- [] Add on message send event
-- [] Add on disconnect event
-- [] Disconnect from chat room button
-- [] React frontend formatting messages
-- [] Display connected users
-- [] Style UI elements
-- [] Deploy
+- [ ] Initialize project
+- [ ] Add on join event
+- [ ] Create main page, enter username
+- [ ] Add on message send event
+- [ ] Add on disconnect event
+- [ ] Disconnect from chat room button
+- [ ] React frontend formatting messages
+- [ ] Display connected users
+- [ ] Style UI elements
+- [ ] Deploy
 
 
 
