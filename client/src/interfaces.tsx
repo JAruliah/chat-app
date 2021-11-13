@@ -1,5 +1,5 @@
 export interface Message {
-    room:string,
+    room?:string,
     author:string,
     message:string,
     time:string

@@ -4,7 +4,7 @@ import { Chat } from './components/Chat';
 import { JoinRoom } from './components/JoinRoom';
 
 // connect socket.io client to backend
-const socket = io(process.env.REACT_APP_BASE_URL)
+const socket = io(`${process.env.REACT_APP_BASE_URL}`)
 
 const App = () => {
   const [userName, setUserName] = useState<string>("")
@@ -21,8 +21,6 @@ const App = () => {
       socket.on('send-all-users', (users:{userName:string,room:string,id:string}[]) => {
         setAllUsers(users)
       })
-
-
   },[])
 
   // If the user has chosen a username and a room, display the chat 

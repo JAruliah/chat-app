@@ -57,6 +57,14 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
     // When a user disconnects recieve the user's info and update the room list
     socket.on('user-left', (disconnectedUser:any) =>{
         const newUserList = roomUsers.filter(user => user.id !== disconnectedUser[0].id)
+        let time = new Date(Date.now()).getHours() % 12 + ":" + new Date(Date.now()).getMinutes() 
+        if (parseInt(time) > 12){
+            time += "am"
+        }else{
+            time += "pm"
+        }
+        const messageData : Message = {author:disconnectedUser[0].userName,message:"disconnected", time:time}
+        setMessageList([...messageList, messageData ])
         setRoomUsers(newUserList)
     })
 

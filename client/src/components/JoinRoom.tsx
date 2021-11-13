@@ -18,6 +18,7 @@ export const JoinRoom: React.FC<JoinRoomProps> = ({userName, setUserName, setRoo
   const [room1UserCount, setRoom1UserCount] = useState<number>(0)
   const [room2UserCount, setRoom2UserCount] = useState<number>(0)
   const [room3UserCount, setRoom3UserCount] = useState<number>(0)
+  const [joinMessage, setJoinMessage] = useState("")
 
   //  Updates the chat room user count when a user leaves or connects
   useEffect(() :any => {
@@ -46,8 +47,11 @@ export const JoinRoom: React.FC<JoinRoomProps> = ({userName, setUserName, setRoo
             setLogged(true)
           }
           else{
-            console.log("This user already exists")
+            setJoinMessage("This username is taken")
           }
+        }
+        else{
+          setJoinMessage("Please enter a username")
         }
       }
         return (
@@ -55,8 +59,8 @@ export const JoinRoom: React.FC<JoinRoomProps> = ({userName, setUserName, setRoo
               <h3>Join Chat</h3>
                 <label>Name:
                 <input type="text" onChange={(e) => {setUserName(e.target.value)}} required></input>
-                {userName === ''? <p>Please enter a username</p>: null }
                 </label>
+                <p>{joinMessage}</p>
                 <div className="rooms">
                   <div className="room-1">
                     <h3>Room 1</h3>
