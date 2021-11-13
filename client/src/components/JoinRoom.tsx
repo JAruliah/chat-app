@@ -23,11 +23,11 @@ export const JoinRoom: React.FC<JoinRoomProps> = ({userName, setUserName, setRoo
     let unMounted = false
         socket.on('send-all-users', (users:User[]) => {
           if(!unMounted){
-            const room1UserList = users.filter(user => user.room === 'room-1')
+            const room1UserList = users.filter(user => user.room === 'room 1')
             setRoom1UserCount(room1UserList.length)
-            const room2UserList = users.filter(user => user.room === 'room-2')
+            const room2UserList = users.filter(user => user.room === 'room 2')
             setRoom2UserCount(room2UserList.length)
-            const room3UserList = users.filter(user => user.room === 'room-3')
+            const room3UserList = users.filter(user => user.room === 'room 3')
             setRoom3UserCount(room3UserList.length)
           }
         })
@@ -52,28 +52,29 @@ export const JoinRoom: React.FC<JoinRoomProps> = ({userName, setUserName, setRoo
         }
       }
         return (
-            <div>
-              <h3>Join Chat</h3>
-                <label>Name:
-                <input type="text" onChange={(e) => {setUserName(e.target.value)}} required></input>
-                </label>
-                <p>{joinMessage}</p>
+            <div className="join-room">
+              <h2 className="text-lg">Join Chat</h2>
+                <div className="username">
+                  <label>Username:</label>
+                  <input type="text" onChange={(e) => {setUserName(e.target.value)}} required></input>
+                  <p>{joinMessage}</p>
+                </div>
                 <div className="rooms">
                   <div className="room-1">
                     <h3>Room 1</h3>
-                      <p>{room1UserCount}</p>
+                      <p>Active Users: {room1UserCount}</p>
                     <button type="button" onClick={() => {joinRoom('room 1')}}>Join Room</button>
                   </div>
 
                   <div className="room-2">
                     <h3>Room 2</h3>
-                    <p>{room2UserCount}</p>
+                    <p>Active Users: {room2UserCount}</p>
                     <button type="button" onClick={() => {joinRoom('room 2')}}>Join Room</button>
                   </div>
 
                   <div className="room-3">
                     <h3>Room 3</h3>
-                    <p>{room3UserCount}</p>
+                    <p>Active Users: {room3UserCount}</p>
                     <button type="button" onClick={() => {joinRoom('room 3')}}>Join Room</button>
                   </div>
 

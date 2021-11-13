@@ -26,7 +26,7 @@ const App = () => {
 
   // If the user has chosen a username and a room, display the chat 
   return (
-    <div>
+    <div className="container mx-auto">
       {logged ? <Chat roomUsers={roomUsers} userName={userName} room={room} socket={socket} setRoomUsers={setRoomUsers} />:<JoinRoom allUsers={allUsers} userName={userName} setUserName={setUserName} setRoom={setRoom} socket={socket} setLogged={setLogged}/>}
 
     </div>

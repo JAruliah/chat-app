@@ -1,0 +1,44 @@
+@import './variables';
+
+.join-room{
+    h2{
+        text-align: center;
+    }
+
+    .username{
+        width: fit-content;
+        margin: auto;
+        p{
+            width: fit-content;
+            margin: auto;
+            color:#ff3b62;
+        }
+        input{
+            display: block;
+            border: 1px solid black;
+        }
+    }
+
+    .rooms {
+        margin-top: 2rem;
+        div{
+            margin:  1rem auto;
+            display: flex;
+            justify-content: space-around;
+            background-color: $blue;
+            padding: .5rem;
+            h3{
+                height: fit-content;
+                margin: auto 0;
+            }
+            p{
+                height: fit-content;
+                margin: auto 0;
+            }
+            button{
+                border: 1px solid black;
+                padding: .5rem;
+            }
+        }
+    }
+}

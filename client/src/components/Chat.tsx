@@ -21,11 +21,16 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
     // when sending a message emit the message data to the server and add message to message list
     const sendMessage = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        let time = new Date(Date.now()).getHours() % 12 + ":" + new Date(Date.now()).getMinutes() 
-        if (parseInt(time) < 12){
-            time += "am"
-        }else{
-            time += "pm"
+        let time:string
+        let hours = new Date(Date.now()).getHours() 
+        if (hours < 12){
+            time = new Date(Date.now()).getHours() % 12  + ":" + new Date(Date.now()).getMinutes() + "am"
+        }
+        if (new Date(Date.now()).getHours() === 12){
+            time = "12:"+ new Date(Date.now()).getMinutes() + "pm"
+        }
+        else{
+            time = new Date(Date.now()).getHours() % 12  + ":" + new Date(Date.now()).getMinutes() + "pm"
         }
         if (currentMessage !== ""){
             const messageData : Message= {
@@ -83,7 +88,7 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
     })
 
         return (
-            <div>
+            <div className="chat">
                 <form onSubmit={sendMessage}>
                     <div className="chat-header">
                         <h2>Hello {userName}</h2>
@@ -94,9 +99,7 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
                         {messageList.map((message, index) => { return <ChatMessage key={index} messageData={message}/> })}
                     </div>
                     <div className="chat-footer">
-                        <label>Type here
                         <input type="text" value={currentMessage} onChange={(e) => {setCurrentMessage(e.target.value)}}/>
-                        </label>
                         <button>Send</button>
                     </div>
                 </form>

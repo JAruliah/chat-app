@@ -1,0 +1,38 @@
+@import './variables';
+
+.chat{
+    form{
+        .chat-header{
+            width: fit-content;
+            margin: auto;
+        }
+        .chat-body{
+            .message{
+                width: 80%;
+                padding: 1rem;
+                margin: 2rem auto;
+                word-break:break-all;
+                text-align: center;
+                background-color: $blue;
+                .message-meta{
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+        }
+        .chat-footer{
+            width: 60%;
+            margin: auto;
+            input{
+                width: 80%;
+                border: 1px solid black;
+                padding:.2rem;
+            }
+            button{
+                width: 20%;
+                border: 1px solid black;
+                padding:.2rem;
+            }
+        }
+    }
+}

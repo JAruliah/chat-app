@@ -5,6 +5,8 @@
 # CLIENT
 
 /client/.env
+/client/src/styles/css/*.map
+/client/src/styles/css/*.css
 
 # dependencies
 /client/node_modules
