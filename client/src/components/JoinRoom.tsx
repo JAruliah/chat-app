@@ -1,29 +1,27 @@
 import React, {useEffect, useState} from 'react'
+import { Socket } from 'socket.io-client'
+import {User} from '../interfaces'
 
 // interface for props
 interface JoinRoomProps {
    userName:string,
    setUserName: React.Dispatch<React.SetStateAction<string>> ,
    setRoom:  React.Dispatch<React.SetStateAction<string>>,
-   socket: any,
+   socket: Socket,
    setLogged:React.Dispatch<React.SetStateAction<boolean>>,
-   allUsers: {
-    userName: string;
-    room: string;
-    id: string;
-}[]
+   allUsers: User[]
 }
 
 export const JoinRoom: React.FC<JoinRoomProps> = ({userName, setUserName, setRoom, socket, setLogged, allUsers}) => {
   const [room1UserCount, setRoom1UserCount] = useState<number>(0)
   const [room2UserCount, setRoom2UserCount] = useState<number>(0)
   const [room3UserCount, setRoom3UserCount] = useState<number>(0)
-  const [joinMessage, setJoinMessage] = useState("")
+  const [joinMessage, setJoinMessage] = useState<string>("")
 
   //  Updates the chat room user count when a user leaves or connects
-  useEffect(() :any => {
+  useEffect(() : ()=> void => {
     let unMounted = false
-        socket.on('send-all-users', (users:{userName:string,room:string,id:string}[]) => {
+        socket.on('send-all-users', (users:User[]) => {
           if(!unMounted){
             const room1UserList = users.filter(user => user.room === 'room-1')
             setRoom1UserCount(room1UserList.length)
@@ -33,7 +31,6 @@ export const JoinRoom: React.FC<JoinRoomProps> = ({userName, setUserName, setRoo
             setRoom3UserCount(room3UserList.length)
           }
         })
-
     return () => unMounted = true
   },[socket])
 
@@ -65,19 +62,19 @@ export const JoinRoom: React.FC<JoinRoomProps> = ({userName, setUserName, setRoo
                   <div className="room-1">
                     <h3>Room 1</h3>
                       <p>{room1UserCount}</p>
-                    <button type="button" onClick={() => {joinRoom('room-1')}}>Join Room</button>
+                    <button type="button" onClick={() => {joinRoom('room 1')}}>Join Room</button>
                   </div>
 
                   <div className="room-2">
                     <h3>Room 2</h3>
                     <p>{room2UserCount}</p>
-                    <button type="button" onClick={() => {joinRoom('room-2')}}>Join Room</button>
+                    <button type="button" onClick={() => {joinRoom('room 2')}}>Join Room</button>
                   </div>
 
                   <div className="room-3">
                     <h3>Room 3</h3>
                     <p>{room3UserCount}</p>
-                    <button type="button" onClick={() => {joinRoom('room-3')}}>Join Room</button>
+                    <button type="button" onClick={() => {joinRoom('room 3')}}>Join Room</button>
                   </div>
 
                 </div>

@@ -1,23 +1,17 @@
 import React, {useState} from 'react'
 import {Message} from '../interfaces'
 import { ChatMessage } from './ChatMessage'
-import { User } from './User'
+import { ActiveUser } from './ActiveUser'
+import {User} from '../interfaces'
+import { Socket } from 'socket.io-client'
 
 // Interface for props
 export interface ChatProps {
     userName: string,
     room: string,
-    socket:any,
-    setRoomUsers:React.Dispatch<React.SetStateAction<{
-        userName: string;
-        room: string;
-        id: string;
-    }[]>>
-    roomUsers:{
-        userName:string,
-        room:string,
-        id:string
-    }[]
+    socket:Socket,
+    setRoomUsers:React.Dispatch<React.SetStateAction<User[]>>
+    roomUsers:User[]
 }
 
 export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, setRoomUsers}) => {
@@ -28,7 +22,7 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
     const sendMessage = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         let time = new Date(Date.now()).getHours() % 12 + ":" + new Date(Date.now()).getMinutes() 
-        if (parseInt(time) > 12){
+        if (parseInt(time) < 12){
             time += "am"
         }else{
             time += "pm"
@@ -54,8 +48,28 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
         setMessageList([...messageList, messageData])
         })
 
+    // when a user joins the chat room, display conencted message to the room
+    socket.on('user-join', (joinedUser:{userName:string}) =>{
+        let time = new Date(Date.now()).getHours() % 12 + ":" + new Date(Date.now()).getMinutes() 
+        if (parseInt(time) > 12){
+            time += "am"
+        }else{
+            time += "pm"
+        }
+        const messageData : Message= {
+            author: joinedUser.userName,
+            message: "connected",
+            time: time
+        }
+        // set use to 'You' if the username is equal to the user's username
+        if (messageData.author === userName){
+            messageData.author = "You"
+        }
+        setMessageList([...messageList, messageData])
+    })
+
     // When a user disconnects recieve the user's info and update the room list
-    socket.on('user-left', (disconnectedUser:any) =>{
+    socket.on('user-left', (disconnectedUser:User[]) =>{
         const newUserList = roomUsers.filter(user => user.id !== disconnectedUser[0].id)
         let time = new Date(Date.now()).getHours() % 12 + ":" + new Date(Date.now()).getMinutes() 
         if (parseInt(time) > 12){
@@ -88,7 +102,7 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
                 </form>
                 <div className="active-users">
                     <h3>Active Users</h3>
-                    {roomUsers.map((item, index)=>{return <User key={index} userName={item.userName}/>})}
+                    {roomUsers.map((item, index)=>{return <ActiveUser key={index} userName={item.userName}/>})}
                 </div>
                 <div className="leave">
                     <button type="button" onClick={(e) => {window.location.reload()}}>Leave</button>
