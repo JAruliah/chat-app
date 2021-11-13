@@ -49,12 +49,14 @@ npm start
 
 ## Things to do
 
-- [ ] Initialize project
-- [ ] Add on join event
-- [ ] Create main page, enter username
-- [ ] Add on message send event
-- [ ] Add on disconnect event
-- [ ] Disconnect from chat room button
+- [x] Initialize project
+- [x] Add on join event
+- [x] Create main page, enter username
+- [x] Add on message send event
+- [x] Add on disconnect event
+- [x] Disconnect from chat room button
+- [x] Display all users in each room
+- [x] Display user count for each room
 - [ ] React frontend formatting messages
 - [ ] Display connected users
 - [ ] Style UI elements
