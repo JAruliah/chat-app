@@ -11,11 +11,12 @@ const io = new Server(server, {cors: {origin: "*"}});
 
 // on connection
 io.on("connection", (socket: Socket) => {
-
+  io.emit('send-all-users',users )
   // Join users to room, then emit to the room all the active users
   socket.on('join-room', (userData) => {
     socket.join(userData.room)
     users.push({userName:userData.userName, room:userData.room, id:socket.id})
+    io.emit('send-all-users',users )
     const roomUsers:User[]= users.filter(user => user.room === userData.room)
     io.in(userData.room).emit('send-users',roomUsers )
   })

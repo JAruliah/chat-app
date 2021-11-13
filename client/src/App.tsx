@@ -24,7 +24,7 @@ const App = () => {
   // If the user has chosen a username and a room, display the chat 
   return (
     <div>
-      {logged ? <Chat roomUsers={roomUsers} userName={userName} room={room} socket={socket} setRoomUsers={setRoomUsers} />:<JoinRoom userName={userName} setUserName={setUserName} room={room} setRoom={setRoom} socket={socket} logged={logged} setLogged={setLogged}/>}
+      {logged ? <Chat roomUsers={roomUsers} userName={userName} room={room} socket={socket} setRoomUsers={setRoomUsers} />:<JoinRoom roomUsers={roomUsers} userName={userName} setUserName={setUserName} room={room} setRoom={setRoom} socket={socket} logged={logged} setLogged={setLogged}/>}
 
     </div>
   );
