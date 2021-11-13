@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import {Message} from '../interfaces'
 import { ChatMessage } from './ChatMessage'
 import { User } from './User'
@@ -24,7 +24,7 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
     const [currentMessage, setCurrentMessage] = useState<string>("")
     const [messageList, setMessageList] = useState<Message[]>([]) 
 
-    // on sending a message emit the message data to the server and add message to message list
+    // when sending a message emit the message data to the server and add message to message list
     const sendMessage = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         let time = new Date(Date.now()).getHours() % 12 + ":" + new Date(Date.now()).getMinutes() 
@@ -41,16 +41,19 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
                 time: time
             }
             await socket.emit("send-message", messageData)
+            // Set the author to 'You' when the author is the user 
+            if (messageData.author === userName){
+                messageData.author = "You"
+            }
             setMessageList([...messageList, messageData])
             setCurrentMessage("")
         }
     }
-    // Whenever a recieve message event add the message data to the message list
-    useEffect(() => {
-        socket.on("receive-message", (messageData:Message) :void =>{
+    // when recieve-message event add the message data to the message list
+    socket.on("receive-message", (messageData:Message) :void =>{
         setMessageList([...messageList, messageData])
         })
-    }, [socket, messageList])
+
     // When a user disconnects recieve the user's info and update the room list
     socket.on('user-left', (disconnectedUser:any) =>{
         const newUserList = roomUsers.filter(user => user.id !== disconnectedUser[0].id)

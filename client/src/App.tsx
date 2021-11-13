@@ -4,27 +4,31 @@ import { Chat } from './components/Chat';
 import { JoinRoom } from './components/JoinRoom';
 
 // connect socket.io client to backend
-const socket = io('http://localhost:5001')
+const socket = io(process.env.REACT_APP_BASE_URL)
 
 const App = () => {
   const [userName, setUserName] = useState<string>("")
   const [room, setRoom] = useState<string>("")
   const [logged, setLogged] = useState<boolean>(false)
   const [roomUsers, setRoomUsers] = useState<{userName:string,room:string,id:string}[]>([])
+  const [allUsers, setAllUsers] = useState<{userName:string,room:string,id:string}[]>([])
 
+  // On user connection, get all connected users
   useEffect(() => {
-    socket.on('connect', () =>{
       socket.on('send-users', (users) => {
         setRoomUsers(users)
       })
-      
-    })
-  },[room])
+      socket.on('send-all-users', (users:{userName:string,room:string,id:string}[]) => {
+        setAllUsers(users)
+      })
+
+
+  },[])
 
   // If the user has chosen a username and a room, display the chat 
   return (
     <div>
-      {logged ? <Chat roomUsers={roomUsers} userName={userName} room={room} socket={socket} setRoomUsers={setRoomUsers} />:<JoinRoom roomUsers={roomUsers} userName={userName} setUserName={setUserName} room={room} setRoom={setRoom} socket={socket} logged={logged} setLogged={setLogged}/>}
+      {logged ? <Chat roomUsers={roomUsers} userName={userName} room={room} socket={socket} setRoomUsers={setRoomUsers} />:<JoinRoom allUsers={allUsers} userName={userName} setUserName={setUserName} setRoom={setRoom} socket={socket} setLogged={setLogged}/>}
 
     </div>
   );

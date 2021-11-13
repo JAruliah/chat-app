@@ -4,6 +4,8 @@
 
 # CLIENT
 
+/client/.env
+
 # dependencies
 /client/node_modules
 /client/.pnp
