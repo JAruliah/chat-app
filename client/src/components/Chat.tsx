@@ -89,11 +89,13 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
 
         return (
             <div className="chat">
+                <h1 className="text-center">{room}</h1>
+                <h2 className="text-center">Hello {userName}</h2>
+                <div className="active-users">
+                    {roomUsers.map((item, index)=>{return <ActiveUser key={index} userName={item.userName}/>})}
+                </div>
                 <form onSubmit={sendMessage}>
                     <div className="chat-header">
-                        <h2>Hello {userName}</h2>
-                        <h3>Room: {room}</h3>
-                        <h4>Live Chat</h4>
                     </div>
                     <div className="chat-body">
                         {messageList.map((message, index) => { return <ChatMessage key={index} messageData={message}/> })}
@@ -103,10 +105,6 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
                         <button>Send</button>
                     </div>
                 </form>
-                <div className="active-users">
-                    <h3>Active Users</h3>
-                    {roomUsers.map((item, index)=>{return <ActiveUser key={index} userName={item.userName}/>})}
-                </div>
                 <div className="leave">
                     <button type="button" onClick={(e) => {window.location.reload()}}>Leave</button>
                 </div>

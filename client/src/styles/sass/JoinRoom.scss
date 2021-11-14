@@ -1,43 +1,46 @@
 @import './variables';
 
 .join-room{
-    h2{
-        text-align: center;
-    }
-
     .username{
-        width: fit-content;
-        margin: auto;
-        p{
-            width: fit-content;
-            margin: auto;
-            color:#ff3b62;
-        }
         input{
             display: block;
+            margin: 0 auto;
+            margin-bottom: 1rem;
             border: 1px solid black;
+            padding: 0 10px;
+            border-radius: 25px;
         }
     }
-
-    .rooms {
-        margin-top: 2rem;
-        div{
-            margin:  1rem auto;
+    .rooms{
+        background-color: $mediumBlue;
+        padding: 1rem 0;
+        border-radius: 25px;
+        .room-1, .room-2, .room-3{
+            height: 5.5rem;
             display: flex;
-            justify-content: space-around;
-            background-color: $blue;
-            padding: .5rem;
-            h3{
-                height: fit-content;
+            justify-content: space-between;
+            width: 90%;
+            margin: 1rem auto;
+            background-color: white;
+            border-radius: 25px;
+            padding: 0 25px;
+            p, h3{
                 margin: auto 0;
             }
-            p{
-                height: fit-content;
-                margin: auto 0;
+            .active-users{
+                display: flex;
+                svg{
+                    height: fit-content;
+                    margin: auto 0;
+                }
             }
             button{
-                border: 1px solid black;
-                padding: .5rem;
+                width: 6.25rem;
+                height: 2.063rem;
+                margin: auto 0;
+                color: white;
+                background-color: $darkBlue;
+                border-radius: 15px;
             }
         }
     }

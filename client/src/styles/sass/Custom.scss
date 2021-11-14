@@ -1,2 +1,24 @@
 @import './JoinRoom.scss';
 @import './Chat.scss';
+@import './variables';
+
+body{
+    background-color: $lightBlue;
+}
+h1,h2,h3,h4,label{
+    color: $darkBlue;
+    font-weight: bold;
+}
+
+@media (min-width: 768px){
+    .container {
+        width: 700px;
+    }
+
+}
+
+@media (min-width: 1536px){
+    .container{
+        width: 1000px;
+    }
+}

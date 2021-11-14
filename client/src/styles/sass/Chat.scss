@@ -1,38 +1,68 @@
 @import './variables';
 
 .chat{
+    .active-users{
+        padding: 1rem;
+        border-radius: 25px 25px 0 0;
+        background-color: $lightGreen;
+        display: flex;
+        div{
+            width: 3rem;
+            svg{
+                margin: auto;
+            }
+            p{
+                text-align: center;
+            }
+        }
+    }
     form{
-        .chat-header{
-            width: fit-content;
-            margin: auto;
+        position: relative;
+        height: 70vh;
+        background-color: $mediumBlue;
+        padding: 1rem;
+        border-radius: 0 0 25px 25px;
+        .message{
+            background-color: white;
+            width: 80%;
+            margin: 1rem auto;
+            border-radius: 25px;
+            padding: 10px;
+            .message-meta{
+                display: flex;
+                justify-content: flex-end;
+            }
         }
         .chat-body{
-            .message{
-                width: 80%;
-                padding: 1rem;
-                margin: 2rem auto;
-                word-break:break-all;
-                text-align: center;
-                background-color: $blue;
-                .message-meta{
-                    display: flex;
-                    justify-content: center;
-                }
-            }
+            overflow-y: scroll;
+            height: 100%;
         }
         .chat-footer{
-            width: 60%;
-            margin: auto;
+            position: relative;
+            margin: 2rem auto;
+            bottom: 0;
+            width: fit-content;
+            border: 20px;
             input{
-                width: 80%;
                 border: 1px solid black;
-                padding:.2rem;
+                padding: 0 10px;
+                border-radius: 25px;
             }
             button{
-                width: 20%;
-                border: 1px solid black;
-                padding:.2rem;
+                background-color: $darkBlue;
+                color: white;
+                padding: 0 5px;
+                border-radius: 10px;
             }
         }
+    }
+    .leave{
+        width: 4rem;
+        margin: auto;
+        margin-top: 4rem;
+        background-color: $red;
+        color: white;
+        border-radius: 10px;
+        padding: 5px 10px ;
     }
 }
