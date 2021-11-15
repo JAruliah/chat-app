@@ -4,6 +4,7 @@ import { ChatMessage } from './ChatMessage'
 import { ActiveUser } from './ActiveUser'
 import {User} from '../interfaces'
 import { Socket } from 'socket.io-client'
+import ReactScrollableFeed from 'react-scrollable-feed'
 
 // Interface for props
 export interface ChatProps {
@@ -89,20 +90,22 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
 
         return (
             <div className="chat">
-                <h1 className="text-center">{room}</h1>
-                <h2 className="text-center">Hello {userName}</h2>
+                <h1 className="text-center text-3xl">Hello, {userName}</h1>
+                <h2 className="text-center text-2xl">Room: {room}</h2>
                 <div className="active-users">
                     {roomUsers.map((item, index)=>{return <ActiveUser key={index} userName={item.userName}/>})}
                 </div>
-                <form onSubmit={sendMessage}>
+                <form onSubmit={sendMessage} >
                     <div className="chat-header">
                     </div>
-                    <div className="chat-body">
-                        {messageList.map((message, index) => { return <ChatMessage key={index} messageData={message}/> })}
+                    <div className="chat-body" id="chat-body">
+                        <ReactScrollableFeed>
+                            {messageList.map((message, index) => { return <ChatMessage key={index} messageData={message}/> })}
+                        </ReactScrollableFeed>
                     </div>
                     <div className="chat-footer">
-                        <input type="text" value={currentMessage} onChange={(e) => {setCurrentMessage(e.target.value)}}/>
-                        <button>Send</button>
+                        <input value={currentMessage} onChange={(e) => {setCurrentMessage(e.target.value)}}/>
+                        <button type="submit" >Send</button>
                     </div>
                 </form>
                 <div className="leave">
