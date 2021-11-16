@@ -49,6 +49,15 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
             setCurrentMessage("")
         }
     }
+
+    const handleUserKeyPress = (e:any) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+          // e.preventDefault();
+          
+         console.log("pressed enter")
+        }
+    }
+
     // when recieve-message event add the message data to the message list
     socket.on("receive-message", (messageData:Message) :void =>{
         setMessageList([...messageList, messageData])
@@ -88,6 +97,8 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
         setRoomUsers(newUserList)
     })
 
+    
+
         return (
             <div className="chat">
                 <h1 className="text-center text-3xl">Hello, {userName}</h1>
@@ -95,7 +106,7 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
                 <div className="active-users">
                     {roomUsers.map((item, index)=>{return <ActiveUser key={index} userName={item.userName}/>})}
                 </div>
-                <form onSubmit={sendMessage} >
+                <form onSubmit={sendMessage}>
                     <div className="chat-header">
                     </div>
                     <div className="chat-body" id="chat-body">
@@ -104,7 +115,7 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
                         </ReactScrollableFeed>
                     </div>
                     <div className="chat-footer">
-                        <input value={currentMessage} onChange={(e) => {setCurrentMessage(e.target.value)}}/>
+                        <textarea onKeyPress={handleUserKeyPress} value={currentMessage} maxLength={150} onChange={(e) => {setCurrentMessage(e.target.value)}}/>
                         <button type="submit" >Send</button>
                     </div>
                 </form>

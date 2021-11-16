@@ -29,9 +29,22 @@
             margin: 1rem auto;
             border-radius: 25px;
             padding: 10px;
+            word-break: break-all;
             .message-meta{
                 display: flex;
                 justify-content: flex-end;
+                .message-author{
+                    color: $darkBlue;
+                    font-weight: bold;
+                    margin-right: 3px;
+                }
+                .message-time{
+                    font-style: italic;
+                }
+            }
+            .status-message{
+                font-weight: bold;
+                color: $darkBlue;
             }
         }
         .chat-body{

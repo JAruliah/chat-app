@@ -56,8 +56,9 @@ export const JoinRoom: React.FC<JoinRoomProps> = ({userName, setUserName, setRoo
               <h1 className="text-center text-3xl">Chatamus</h1>
                 <div className="username text-center">
                   <label>Username:</label>
-                  <input type="text" onChange={(e) => {setUserName(e.target.value)}} required></input>
-                  <p>{joinMessage}</p>
+                  <input type="text" onChange={(e) => {setUserName(e.target.value)}} maxLength={12} required></input>
+                  <p>* Max length of 12 characters</p>
+                  <p className="join-error">{joinMessage}</p>
                 </div>
                 <div className="rooms">
                   <div className="room-1">
