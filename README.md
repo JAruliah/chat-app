@@ -64,6 +64,7 @@ npm start
 - [x] Display user count for each room
 - [x] React frontend formatting messages
 - [x] Style UI elements
+- [x] Deploy :)
 
 ## Upcoming Features ??
 - [ ] Optimize site
