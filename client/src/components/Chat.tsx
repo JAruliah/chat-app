@@ -141,10 +141,10 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
 
         return (
             <div className="chat">
+                              <img src="/img/send.png" width="50" height="50" className="mx-auto mb-3" alt="logo"/>
                 <h1 className="text-center text-3xl">Hello, {userName}</h1>
-                <h2 className="text-center text-2xl">Room: {room}</h2>
                 <div className="active-users">
-                    <h2 className="text-center text-xl">Active Users</h2>
+                    <h2 className="text-center text-xl">{room}: Active Users</h2>
                     <div className="user">
                         {roomUsers.map((item, index)=>{return <ActiveUser key={index} userName={item.userName}/>})}
                     </div>

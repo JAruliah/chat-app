@@ -53,8 +53,9 @@ export const JoinRoom: React.FC<JoinRoomProps> = ({userName, setUserName, setRoo
       }
         return (
             <div className="join-room">
-              <h1 className="text-center text-3xl">Chatamus</h1>
-              <h3 className="text-center mb-3">Welcome! Please enter a username and join a room to start chatting</h3>
+              <h1 className="text-center text-3xl mb-3">Chatamus</h1>
+              <img src="/img/send.png" width="80" height="80" className="mx-auto mb-3" alt="logo"/>
+              <h3 className="text-center mb-5">Welcome! Please enter a username and join a room to start chatting</h3>
                 <div className="username text-center">
                   <label>Username:</label>
                   <input type="text" onChange={(e) => {setUserName(e.target.value)}} maxLength={12} required></input>
