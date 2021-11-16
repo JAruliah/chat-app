@@ -23,15 +23,29 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
     const sendMessage = async () => {
         let time:string
         let hours = new Date(Date.now()).getHours() 
-        if (hours < 12){
-            time = new Date(Date.now()).getHours() % 12  + ":" + new Date(Date.now()).getMinutes() + "am"
-        }
-        if (new Date(Date.now()).getHours() === 12){
-            time = "12:"+ new Date(Date.now()).getMinutes() + "pm"
+        let minutes:number  =new Date(Date.now()).getMinutes()
+        let minuteString:string =""
+        if (minutes<10){
+            minuteString = `0${minutes}`
         }
         else{
-            time = new Date(Date.now()).getHours() % 12  + ":" + new Date(Date.now()).getMinutes() + "pm"
+            minuteString=`${minutes}`
         }
+
+        if (hours < 12){
+            time = new Date(Date.now()).getHours() % 12  + ":" + minuteString + "am"
+        }
+        if (new Date(Date.now()).getHours() === 12){
+            time = "12:"+ minuteString + "pm"
+        }
+
+        if (hours === 12){
+            time = `${12}:${minuteString}pm`
+        }
+        else{
+            time = new Date(Date.now()).getHours() % 12  + ":" + minuteString+ "pm"
+        }
+
         if (currentMessage !== ""){
             const messageData : Message= {
                 room:room,
@@ -64,11 +78,24 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
 
     // when a user joins the chat room, display conencted message to the room
     socket.on('user-join', (joinedUser:{userName:string}) =>{
-        let time = new Date(Date.now()).getHours() % 12 + ":" + new Date(Date.now()).getMinutes() 
-        if (parseInt(time) > 12){
-            time += "am"
-        }else{
-            time += "pm"
+        let minutes:number  =new Date(Date.now()).getMinutes()
+        let minuteString:string =""
+        let time :string
+        if (minutes<10){
+            minuteString = `0${minutes}`
+        }
+        else{
+            minuteString=`${minutes}`
+        }
+        let hours = new Date(Date.now()).getHours()
+        if (hours > 12){
+            time = new Date(Date.now()).getHours() % 12 + ":"+minuteString + "pm"
+        }
+        if (hours === 12){
+            time = `${12}:${minuteString}pm`
+        }        
+        else{
+            time = new Date(Date.now()).getHours() % 12 + ":"+minuteString + "am"
         }
         const messageData : Message= {
             author: joinedUser.userName,
@@ -85,12 +112,26 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
     // When a user disconnects recieve the user's info and update the room list
     socket.on('user-left', (disconnectedUser:User[]) =>{
         const newUserList = roomUsers.filter(user => user.id !== disconnectedUser[0].id)
-        let time = new Date(Date.now()).getHours() % 12 + ":" + new Date(Date.now()).getMinutes() 
-        if (parseInt(time) > 12){
-            time += "am"
-        }else{
-            time += "pm"
+        let time:string
+        let hours:number = new Date(Date.now()).getHours() 
+        let minutes:number  = new Date(Date.now()).getMinutes()
+        let minuteString:string =""
+        if (minutes<10){
+            minuteString = `0${minutes}`
         }
+        else{
+            minuteString=`${minutes}`
+        }
+        if (hours > 12){
+            time = `${hours % 12}:${minuteString}am`
+        }
+        if (hours === 12){
+            time = `${12}:${minuteString}pm`
+        }
+        else{
+            time = `${hours % 12}:${minuteString}pm`
+        }
+        
         const messageData : Message = {author:disconnectedUser[0].userName,message:"disconnected", time:time}
         setMessageList([...messageList, messageData ])
         setRoomUsers(newUserList)
