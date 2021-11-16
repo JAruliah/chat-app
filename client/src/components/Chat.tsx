@@ -21,7 +21,7 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
 
     // when sending a message emit the message data to the server and add message to message list
     const sendMessage = async () => {
-        let time:string =""
+        let time:string
         let hours = new Date(Date.now()).getHours() 
         let minutes:number  =new Date(Date.now()).getMinutes()
         let minuteString:string =""
@@ -42,7 +42,7 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
         if (hours === 12){
             time = `${12}:${minuteString}pm`
         }
-        else if(hours < 12 ){
+        else{
             time = new Date(Date.now()).getHours() % 12  + ":" + minuteString+ "pm"
         }
 
@@ -80,7 +80,7 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
     socket.on('user-join', (joinedUser:{userName:string}) =>{
         let minutes:number  =new Date(Date.now()).getMinutes()
         let minuteString:string =""
-        let time :string = ""
+        let time :string
         if (minutes<10){
             minuteString = `0${minutes}`
         }
@@ -94,7 +94,7 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
         if (hours === 12){
             time = `${12}:${minuteString}pm`
         }        
-        else if(hours < 12 ){
+        else{
             time = new Date(Date.now()).getHours() % 12 + ":"+minuteString + "am"
         }
         const messageData : Message= {
@@ -112,7 +112,7 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
     // When a user disconnects recieve the user's info and update the room list
     socket.on('user-left', (disconnectedUser:User[]) =>{
         const newUserList = roomUsers.filter(user => user.id !== disconnectedUser[0].id)
-        let time:string = ""
+        let time:string
         let hours:number = new Date(Date.now()).getHours() 
         let minutes:number  = new Date(Date.now()).getMinutes()
         let minuteString:string =""
@@ -128,7 +128,7 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
         if (hours === 12){
             time = `${12}:${minuteString}pm`
         }
-        else if(hours < 12 ){
+        else{
             time = `${hours % 12}:${minuteString}am`
         }
         
