@@ -1,5 +1,5 @@
 # Chat App
-![chatamus-main](https://user-images.githubusercontent.com/71105258/141927009-2b1fed0d-539b-4e52-8979-ea04938ec432.png)
+![chatamus-main](https://user-images.githubusercontent.com/71105258/141929047-cfba6430-1a45-4b3e-812a-ba32c4f69a90.png)
 ![chatamus-chat](https://user-images.githubusercontent.com/71105258/141927018-a73cb1e7-ae2b-4900-b4ac-d025f45a842e.png)
 
 ### Live Site: https://chatamus.jaruliah.me/
@@ -8,7 +8,17 @@ This is a real time chat app using socket.io
 
 ## Description
 
-Project is made using nodejs, express, socket.io, react and typescript. Users will be able to join chat rooms with a unique username chosen by the user. There are three chat rooms users can join. For each chat room a total number of active users in the room is displated. In the chat room, a list of active users will be displayed and each message will have the author of the message and the time it was sent. This is all done in real time.
+In this project users will be able to join chat rooms with a unique username chosen by the user. There are three chat rooms users can join. For each chat room a total number of active users in the room is displated. In the chat room, a list of active users will be displayed and each message will have the author of the message and the time it was sent. This is all done in real time.
+
+## Built With
+- Typescript
+- React
+- Nodejs
+- Express
+- MongoDB
+- Socket.io
+- SCSS
+- Tailwind
 
 ## Getting Started
 
