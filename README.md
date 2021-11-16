@@ -4,7 +4,7 @@ This is a real time chat app using socket.io
 
 ## Description
 
-Project is made using nodejs, express, socket.io, react and typescript. Users will be able to join chat rooms with a unique username chosen by the user. There are three chat rooms users can join. In the chat room, a list of active users will be displayed and each message will have the author of the message and the time it was sent. This is all done in real time.
+Project is made using nodejs, express, socket.io, react and typescript. Users will be able to join chat rooms with a unique username chosen by the user. There are three chat rooms users can join. For each chat room a total number of active users in the room is displated. In the chat room, a list of active users will be displayed and each message will have the author of the message and the time it was sent. This is all done in real time.
 
 ## Getting Started
 
@@ -58,8 +58,8 @@ npm start
 - [x] Display all users in each room
 - [x] Add option to disconnect from room
 - [x] Display user count for each room
-- [ ] React frontend formatting messages
-- [ ] Style UI elements
+- [x] React frontend formatting messages
+- [x] Style UI elements
 - [ ] Deploy
 
 

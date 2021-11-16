@@ -20,8 +20,7 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
     const [messageList, setMessageList] = useState<Message[]>([]) 
 
     // when sending a message emit the message data to the server and add message to message list
-    const sendMessage = async (e:React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+    const sendMessage = async () => {
         let time:string
         let hours = new Date(Date.now()).getHours() 
         if (hours < 12){
@@ -50,11 +49,11 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
         }
     }
 
-    const handleUserKeyPress = (e:any) => {
-        if (e.key === "Enter" && !e.shiftKey) {
-          // e.preventDefault();
-          
-         console.log("pressed enter")
+    const enterSubmit = (e:any) =>{
+        if (e.code === "Enter"){
+            e.preventDefault()
+            e.stopPropagation()
+            sendMessage()
         }
     }
 
@@ -104,7 +103,10 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
                 <h1 className="text-center text-3xl">Hello, {userName}</h1>
                 <h2 className="text-center text-2xl">Room: {room}</h2>
                 <div className="active-users">
-                    {roomUsers.map((item, index)=>{return <ActiveUser key={index} userName={item.userName}/>})}
+                    <h2 className="text-center text-xl">Active Users</h2>
+                    <div className="user">
+                        {roomUsers.map((item, index)=>{return <ActiveUser key={index} userName={item.userName}/>})}
+                    </div>
                 </div>
                 <form onSubmit={sendMessage}>
                     <div className="chat-header">
@@ -115,8 +117,8 @@ export const Chat: React.FC<ChatProps> = ({userName, room, socket, roomUsers, se
                         </ReactScrollableFeed>
                     </div>
                     <div className="chat-footer">
-                        <textarea onKeyPress={handleUserKeyPress} value={currentMessage} maxLength={150} onChange={(e) => {setCurrentMessage(e.target.value)}}/>
-                        <button type="submit" >Send</button>
+                        <textarea onKeyPress={(e) => enterSubmit(e)} value={currentMessage} maxLength={150} onChange={(e) => {setCurrentMessage(e.target.value)}}/>
+                        <button type="button" onClick={()=>sendMessage()}>Send</button>
                     </div>
                 </form>
                 <div className="leave">
