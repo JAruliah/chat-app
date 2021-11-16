@@ -1,5 +1,9 @@
 # Chat App
+![chatamus-main](https://user-images.githubusercontent.com/71105258/141927009-2b1fed0d-539b-4e52-8979-ea04938ec432.png)
+![chatamus-chat](https://user-images.githubusercontent.com/71105258/141927018-a73cb1e7-ae2b-4900-b4ac-d025f45a842e.png)
 
+
+### Live Site: https://chatamus.jaruliah.me/
 This is a real time chat app using socket.io
 
 ## Description
@@ -60,7 +64,11 @@ npm start
 - [x] Display user count for each room
 - [x] React frontend formatting messages
 - [x] Style UI elements
-- [ ] Deploy
+
+## Upcoming Features ??
+- [ ] Optimize site
+- [ ] Add user profiles
+??
 
 
 
