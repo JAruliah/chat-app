@@ -8,7 +8,7 @@ This is a real time chat app using socket.io
 
 ## Description
 
-In this project users will be able to join chat rooms with a unique username chosen by the user. There are three chat rooms users can join. For each chat room a total number of active users in the room is displated. In the chat room, a list of active users will be displayed and each message will have the author of the message and the time it was sent. This is all done in real time.
+In this project users will be able to join chat rooms with a unique username chosen by the user. There are three chat rooms users can join. For each chat room a total number of active users in the room is displayed. In the chat room, a list of active users will be displayed and each message will have the author of the message and the time it was sent. This is all done in real time.
 
 ## Built With
 - Typescript
