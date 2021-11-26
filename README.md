@@ -19,6 +19,7 @@ In this project users will be able to join chat rooms with a unique username cho
 - Socket.io
 - SCSS
 - Tailwind
+- Hosted on NGINX VPS
 
 ## Getting Started
 
