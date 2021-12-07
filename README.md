@@ -1,5 +1,5 @@
 # Chatamus
-![chatamus](https://user-images.githubusercontent.com/71105258/144942066-14e2ae4a-07a6-4c92-9edb-523b4fbd5fed.gif)
+![chatamus](https://user-images.githubusercontent.com/71105258/144942463-17fd43e2-021d-40d9-8f1e-bc76ea274337.gif)
 
 ### Live Site: https://chatamus.jaruliah.me/
 
